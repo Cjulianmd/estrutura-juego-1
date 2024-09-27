@@ -1,5 +1,5 @@
 #include "juego.h"
-
+//ingresar los datos basicos
 void iniciarJuego() {
     int numJugadores;
     std::cout << "Ingrese el número de jugadores (3-5): ";
