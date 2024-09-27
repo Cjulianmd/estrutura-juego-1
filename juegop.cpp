@@ -1,5 +1,5 @@
 #include "juego.h"
-
+//Constructor 
 Colorette::Colorette(int numJugadores, int numPartidas) : numPartidas(numPartidas), partidaActual(1) {
     for (int i = 0; i < numJugadores; i++) {
         std::cout << "Ingrese el nombre del Jugador " << i + 1 << ": ";
@@ -13,7 +13,7 @@ Colorette::Colorette(int numJugadores, int numPartidas) : numPartidas(numPartida
     jugadorActual = 0;
     ultimaRonda = false;
 }
-
+//crea el mazo de cartas
 void Colorette::crearMazo() {
     std::vector<std::string> colores = {"Rojo", "Azul", "Verde", "Amarillo", "Naranja", "Violeta", "Gris"};
     for (const auto& color : colores) {
@@ -29,13 +29,13 @@ void Colorette::crearMazo() {
     }
     mazo.push_back({"Última Ronda", 0, true, false});
 }
-
+//crea el mazo
 void Colorette::barajarMazo() {
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(mazo.begin(), mazo.end(), g);
 }
-
+//coloca la carta final en el punto adecuado
 void Colorette::prepararMazo() {
     barajarMazo();
     std::vector<Carta> mazoTemporal;
@@ -51,14 +51,14 @@ void Colorette::prepararMazo() {
     barajarMazo();
     mazo.insert(mazo.end(), mazoTemporal.begin(), mazoTemporal.end());
 }
-
+//crea las filas segun el numero de jugadores
 void Colorette::inicializarFilas() {
     filas.clear();
     for (size_t i = 0; i < jugadores.size(); i++) {
         filas.push_back({});
     }
 }
-
+//imprimir las filas
 void Colorette::mostrarEstadoJuego() {
     std::cout << "\nEstado actual del juego:" << std::endl;
     for (size_t i = 0; i < filas.size(); i++) {
@@ -69,7 +69,7 @@ void Colorette::mostrarEstadoJuego() {
         std::cout << std::endl;
     }
 }
-
+//gestiona como actuar segun se toma las cartas
 void Colorette::tomarYPonerCarta() {
     if (mazo.empty()) {
         std::cout << "El mazo está vacío. No se pueden tomar más cartas." << std::endl;
@@ -103,7 +103,7 @@ void Colorette::tomarYPonerCarta() {
 
     filas[filaElegida].push_back(cartaTomada);
 }
-
+//sirve para tomar las cartas de una fila
 void Colorette::tomarFila() {
     mostrarEstadoJuego();
     int filaElegida;
@@ -117,7 +117,7 @@ void Colorette::tomarFila() {
     filas[filaElegida].clear();
     jugadores[jugadorActual].activo = false;
 }
-
+//tomar los puntos
 int Colorette::calcularPuntuacion(Jugador& jugador) {
     std::map<std::string, int> conteoColores;
     int puntosMasDos = 0;
@@ -157,7 +157,7 @@ int Colorette::calcularPuntuacion(Jugador& jugador) {
 
     return puntosPositivos + puntosMasDos - puntosNegativos;
 }
-
+//gestiona segun la cantidad de cartas los puntos que devuelve
 int Colorette::calcularPuntosPorColor(int numCartas) {
     switch(numCartas) {
         case 1: return 1;
@@ -168,7 +168,7 @@ int Colorette::calcularPuntosPorColor(int numCartas) {
         default: return 21;  // 6 o más cartas
     }
 }
-
+//controla el orden de la partida
 void Colorette::jugarPartida() {
     std::cout << "\n--- Partida " << partidaActual << " de " << numPartidas << " ---" << std::endl;
     
@@ -213,7 +213,7 @@ void Colorette::jugarPartida() {
 
     partidaActual++;
 }
-
+//Muestra los resultados finales del juego
 void Colorette::mostrarResultadoFinal() {
     std::cout << "\n--- Resultado Final ---" << std::endl;
     for (const auto& jugador : jugadores) {
