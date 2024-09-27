@@ -1,6 +1,6 @@
 #ifndef CLASES_H
 #define CLASES_H
-
+//definir la clase y incluir los datos necesarios
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -31,7 +31,7 @@ private:
     bool ultimaRonda;
     int numPartidas;
     int partidaActual;
-
+//todas las funciones para correr el colorette
     void crearMazo();
     void barajarMazo();
     void prepararMazo();
@@ -43,6 +43,7 @@ private:
     int calcularPuntosPorColor(int numCartas);
 
 public:
+//los datos que tiene que ser publicos
     Colorette(int numJugadores, int numPartidas);
     void jugarPartida();
     void mostrarResultadoFinal();
