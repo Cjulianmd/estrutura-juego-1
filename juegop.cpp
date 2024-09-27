@@ -72,6 +72,7 @@ void Colorette::mostrarEstadoJuego() {
 //gestiona como actuar segun se toma las cartas
 void Colorette::tomarYPonerCarta() {
     if (mazo.empty()) {
+        //si no hay cartas en el mazo
         std::cout << "El mazo está vacío. No se pueden tomar más cartas." << std::endl;
         return;
     }
@@ -80,6 +81,7 @@ void Colorette::tomarYPonerCarta() {
     mazo.pop_back();
 
     if (cartaTomada.esUltimaRonda) {
+        //si se toma la ultima ronda
         std::cout << "¡Se ha tomado la carta de Última Ronda! Esta será la última ronda del juego." << std::endl;
         ultimaRonda = true;
         if (!mazo.empty()) {
@@ -96,6 +98,7 @@ void Colorette::tomarYPonerCarta() {
     mostrarEstadoJuego();
     int filaElegida;
     do {
+        //seleccionar fila a dejar la carta
         std::cout << "Elige una fila para poner la carta (1-" << filas.size() << "): ";
         std::cin >> filaElegida;
         filaElegida--;
@@ -108,16 +111,17 @@ void Colorette::tomarFila() {
     mostrarEstadoJuego();
     int filaElegida;
     do {
+        //Elegir fila al robar
         std::cout << "Elige una fila para tomar (1-" << filas.size() << "): ";
         std::cin >> filaElegida;
         filaElegida--;
     } while (filaElegida < 0 || filaElegida >= filas.size() || filas[filaElegida].empty());
-
+    //sumar las cartas
     jugadores[jugadorActual].mano.insert(jugadores[jugadorActual].mano.end(), filas[filaElegida].begin(), filas[filaElegida].end());
     filas[filaElegida].clear();
     jugadores[jugadorActual].activo = false;
 }
-//tomar los puntos
+//calcular los puntos
 int Colorette::calcularPuntuacion(Jugador& jugador) {
     std::map<std::string, int> conteoColores;
     int puntosMasDos = 0;
@@ -157,7 +161,7 @@ int Colorette::calcularPuntuacion(Jugador& jugador) {
 
     return puntosPositivos + puntosMasDos - puntosNegativos;
 }
-//gestiona segun la cantidad de cartas los puntos que devuelve
+//gestiona segun la cantidad de cartas los puntos que se tiene
 int Colorette::calcularPuntosPorColor(int numCartas) {
     switch(numCartas) {
         case 1: return 1;
