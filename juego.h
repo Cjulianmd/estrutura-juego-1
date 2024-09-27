@@ -24,6 +24,7 @@ struct Jugador {
 
 class Colorette {
 private:
+//generar variables
     std::vector<Carta> mazo;
     std::vector<std::vector<Carta>> filas;
     std::vector<Jugador> jugadores;
