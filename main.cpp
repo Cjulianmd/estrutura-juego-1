@@ -1,12 +1,14 @@
 
-
+#include "Colorette.h"
 #include <iostream>
 
-void iniciarJuego();
-
 int main() {
-//El main solo inicializa el juego
-    iniciarJuego();
+    int numJugadores;
+    std::cout << "Ingrese el número de jugadores (3-5): ";
+    std::cin >> numJugadores;
+
+    Colorette juego(numJugadores);
+    juego.jugarPartida();
+
     return 0;
 }
-
