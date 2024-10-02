@@ -55,6 +55,7 @@ void Colorette::tomarYPonerCarta() {
         std::cout << "Elige una fila para poner la carta (1-" << filas.size() << "): ";
         std::cin >> filaElegida;
         filaElegida--;
+        
     } while (filaElegida < 0 || filaElegida >= filas.size() || filas[filaElegida].size() >= 3 || !filasDisponibles[filaElegida]);
 
     filas[filaElegida].push_back(cartaTomada);
@@ -67,10 +68,7 @@ void Colorette::tomarFila() {
         std::cout << "Elige una fila para tomar (1-" << filas.size() << "): ";
         std::cin >> filaElegida;
         filaElegida--;
-        if (filas[filaElegida].empty()) {
-            std::cout << "La fila elegida está vacía. No se pueden tomar más cartas." << std::endl;
-            jugarPartida();
-        }
+        
         
     } while (filaElegida < 0 || filaElegida >= filas.size() || filas[filaElegida].empty() || !filasDisponibles[filaElegida]);
 
@@ -97,19 +95,27 @@ void Colorette::contarPuntosJugadores() {
 void Colorette::jugarPartida() {
     while (!ultimaRonda || !mazo.estaVacio()) {
         if (jugadores[jugadorActual].activo) {
-            std::cout << "\nTurno de " << jugadores[jugadorActual].nombre << std::endl;
-            mostrarEstadoJuego();
-
             char accion;
              int prueba = 1;
             do{
+                std::cout << "\nTurno de " << jugadores[jugadorActual].nombre << std::endl;
+                mostrarEstadoJuego();
+                jugadores[jugadorActual].mostrarCartasPorColor();
             if (std::all_of(filas.begin(), filas.end(), [](const std::vector<Carta>& fila) { return fila.size() >= 3; })) {
-                std::cout << "Todas las filas están llenas. Debes tomar una fila." << std::endl;
-                accion = 'B';
-            } else {
-                std::cout << "¿Qué acción quieres realizar? (A: Tomar y poner carta, B: Tomar fila): ";
-                std::cin >> accion;
+                    std::cout << "Todas las filas están llenas. Debes tomar una fila." << std::endl;
+                    accion = 'B';
+                    prueba = 0;
+                } else {
+                    // Verifica si todas las filas están vacías
+                    if (std::all_of(filas.begin(), filas.end(), [](const std::vector<Carta>& fila) { return fila.empty(); })) {
+                        std::cout << "No se puede tomar una fila ya que todas están vacías. Debes tomar y poner una carta." << std::endl;
+                        accion = 'A'; // Forzar acción 'A'
+                        prueba = 0;
+                    } else {
+                        std::cout << "¿Qué acción quieres realizar? (A: Tomar y poner carta, B: Tomar fila): ";
+                        std::cin >> accion;
             }
+                }
 
             if (accion == 'A') {
                 tomarYPonerCarta();
@@ -121,7 +127,7 @@ void Colorette::jugarPartida() {
             else{
                 std::cout << "Acción invalida intenta de nuevo \n";
             }
-            }while(prueba = 1);
+            }while(prueba == 1);
 
             jugadores[jugadorActual].mostrarCartasPorColor(); // Mostrar el conteo de cartas por color después del turno.
         }
