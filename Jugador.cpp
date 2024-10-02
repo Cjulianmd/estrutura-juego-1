@@ -1,6 +1,5 @@
 #include "Jugador.h"
 #include "Carta.h"
-#include "Carta.cpp"
 #include <iostream>
 #include <map>
 #include <algorithm>
