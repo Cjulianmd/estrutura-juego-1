@@ -56,4 +56,7 @@ Cuando se roba la carta de **Última ronda**, se juega esa ronda como de costumb
 ## Final del Juego
 - El juego termina cuando todos los jugadores han tomado una línea en la ronda final.
 - Se suman y restan puntos según la cantidad de cartas en cada color.
+## Diagrama de clase
+-![Captura de pantalla 2024-09-27 161044](https://github.com/user-attachments/assets/de5d33de-416f-4b81-afe3-86ba8829b07d)
+
 - El jugador con más puntos gana la partida.
