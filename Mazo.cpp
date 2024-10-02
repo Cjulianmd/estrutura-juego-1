@@ -30,14 +30,14 @@ bool Mazo::estaVacio() const {
 void Mazo::crearMazo() {
     std::vector<std::string> colores = {"Rojo", "Azul", "Verde", "Amarillo", "Naranja", "Violeta", "Gris"};
     for (const auto& color : colores) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i <= 9; i++) {
             cartas.push_back(Carta(color, 1));
         }
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i <= 10; i++) {
         cartas.push_back(Carta("+2", 2));
     }
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i <= 3; i++) {
         cartas.push_back(Carta("Comodín", 0, true));
     }
 }
