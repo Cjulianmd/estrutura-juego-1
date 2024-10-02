@@ -67,6 +67,11 @@ void Colorette::tomarFila() {
         std::cout << "Elige una fila para tomar (1-" << filas.size() << "): ";
         std::cin >> filaElegida;
         filaElegida--;
+        if (filas[filaElegida].empty()) {
+            std::cout << "La fila elegida está vacía. No se pueden tomar más cartas." << std::endl;
+            jugarPartida();
+        }
+        
     } while (filaElegida < 0 || filaElegida >= filas.size() || filas[filaElegida].empty() || !filasDisponibles[filaElegida]);
 
     jugadores[jugadorActual].mano.insert(jugadores[jugadorActual].mano.end(), filas[filaElegida].begin(), filas[filaElegida].end());
@@ -96,6 +101,8 @@ void Colorette::jugarPartida() {
             mostrarEstadoJuego();
 
             char accion;
+             int prueba = 1;
+            do{
             if (std::all_of(filas.begin(), filas.end(), [](const std::vector<Carta>& fila) { return fila.size() >= 3; })) {
                 std::cout << "Todas las filas están llenas. Debes tomar una fila." << std::endl;
                 accion = 'B';
@@ -106,9 +113,15 @@ void Colorette::jugarPartida() {
 
             if (accion == 'A') {
                 tomarYPonerCarta();
+                prueba = 0;
             } else if (accion == 'B') {
                 tomarFila();
+                prueba = 0;
             }
+            else{
+                std::cout << "Acción invalida intenta de nuevo \n";
+            }
+            }while(prueba = 1);
 
             jugadores[jugadorActual].mostrarCartasPorColor(); // Mostrar el conteo de cartas por color después del turno.
         }
